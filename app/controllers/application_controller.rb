@@ -1,4 +1,5 @@
 class ApplicationController < Sinatra::Base
+  
   register Sinatra::ActiveRecordExtension
   set :views, Proc.new { File.join(root, "../views/") }
 
@@ -12,7 +13,6 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/registrations/signup' do
-
     erb :'/registrations/signup'
   end
 
@@ -20,13 +20,10 @@ class ApplicationController < Sinatra::Base
     @user = User.new(name: params["name"], email: params["email"], password: params["password"])
     @user.save
     session[:user_id] = @user.id
-
     redirect '/users/home'
   end
 
   get '/sessions/login' do
-
-    # the line of code below render the view page in app/views/sessions/login.erb
     erb :'sessions/login'
   end
 
@@ -45,7 +42,6 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/users/home' do
-
     @user = User.find(session[:user_id])
     erb :'/users/home'
   end
